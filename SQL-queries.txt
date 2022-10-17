@@ -1,0 +1,40 @@
+/* Query 1 - query used for first insight /
+SELECT a.name,
+       count(t.trackid) AS total_count
+FROM genre g
+JOIN track t ON g.genreid = t.genreid
+JOIN album al ON al.albumid = t.albumid
+JOIN artist a ON a.artistid = al.artistid
+WHERE g.name = 'Jazz'
+GROUP BY a.name
+ORDER BY total_count DESC
+LIMIT 5;
+
+
+/* Query 2 - query used for second insight /
+SELECT a.name,
+       sum(il.unitprice*il.quantity) AS        total_earnings
+FROM invoiceline il
+JOIN track t ON t.trackid = il.trackid
+JOIN album al ON al.albumid = t.albumid
+JOIN artist a ON a.artistid = al.artistid
+GROUP BY a.name
+ORDER BY total_earnings DESC
+LIMIT 5;
+
+/* Query 3 - query used for third insight /
+SELECT g.name AS genre,
+       avg(t.milliseconds) AS        average_track_length
+FROM track t
+JOIN genre g ON g.genreid = t.genreid
+GROUP BY g.name
+ORDER BY average_track_length DESC;
+
+/* Query 4 - query used for fourth insight /
+SELECT p.name,
+       count(*) AS Total_tracks
+FROM playlist p
+JOIN playlisttrack pt ON p.playlistid = pt.playlistid
+GROUP BY p.name
+ORDER BY total_tracks DESC
+LIMIT 3;
